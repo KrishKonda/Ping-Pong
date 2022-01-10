@@ -1,0 +1,21 @@
+body
+{
+font-size:22px;
+text-align:center;
+}
+.heading{
+    width:100%;
+    text-align:left;
+}
+.heading h3{
+    display:inline;
+}
+.heading button{
+    float:right;
+    border:1px solid white;
+}
+canvas{
+    border-radius:10px;
+    border:10px solid white;
+    box-shadow:5px 5px 5px white;
+}
