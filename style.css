@@ -19,3 +19,12 @@ canvas{
     border:10px solid white;
     box-shadow:5px 5px 5px white;
 }
+h4{
+    background-color:#f5f5f5;
+    line-height:2;
+    margin:0px;
+    bottom:0;
+}
+.modal-dialog{
+    width:90%;
+}
