@@ -20,7 +20,9 @@ var ball = {
     dx:3,
     dy:3
 }
-
+rightWristX="";
+rightWristY="";
+rightWristScore="";
 function setup(){
   var canvas =  createCanvas(700,600);
   canvas.parent("canvas");
@@ -28,12 +30,20 @@ function setup(){
   video.size(700,600);
   video.hide();
   posenet=ml5.poseNet(video,modelLoaded);
-  //posenet.on('pose',gotResults);
+  posenet.on('pose',gotResults);
 }
 function modelLoaded(){
   console.log("Model Loaded");
 }
-
+function gotResults(results){
+  if(results.length>0){
+    console.log(results);
+    rightWristX=results[0].pose.rightWrist.x;
+    rightWristY=results[0].pose.rightWrist.y;
+    rightWristScore=results[0].pose.keypoints[10].score;
+    console.log(rightWristScore);
+  }
+}
 function draw(){
 
  background(0); 
@@ -55,7 +65,11 @@ image(video,0,0,700,600);
     strokeWeight(0.5);
    paddle1Y = mouseY; 
    rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
-   
+   if(rightWristScore>0.2){
+    fill("#238534");
+    stroke("#238534");
+    circle(rightWristX,rightWristY,20);
+  }
    
     //pc computer paddle
     fill("#FFA500");
