@@ -28,6 +28,10 @@ function startGame() {
   game_status = "start";
   document.getElementById("status").innerHTML = "Game is loading";
 }
+function preload(){
+  pingpong_touch_paddel=loadSound("ball_touch_paddel.wav");
+  pingpong_missed=loadSound("missed.wav");
+}
 function setup() {
   var canvas = createCanvas(700, 600);
   canvas.parent("canvas");
@@ -68,7 +72,7 @@ function draw() {
     fill(250, 0, 0);
     stroke(0, 0, 250);
     strokeWeight(0.5);
-    paddle1Y = mouseY;
+    paddle1Y = rightWristY;
     rect(paddle1X, paddle1Y, paddle1, paddle1Height, 100);
     if (rightWristScore > 0.2) {
       fill("#238534");
@@ -145,9 +149,11 @@ function move() {
   }
   if (ball.x - 2.5 * ball.r / 2 < 0) {
     if (ball.y >= paddle1Y && ball.y <= paddle1Y + paddle1Height) {
+      pingpong_touch_paddel.play();
       ball.dx = -ball.dx + 0.5;
     }
     else {
+      pingpong_missed.play();
       pcscore++;
       reset();
       navigator.vibrate(100);
@@ -161,7 +167,7 @@ function move() {
     stroke("white");
     textSize(25)
     text("Game Over!☹☹", width / 2, height / 2);
-    text("Reload The Page!", width / 2, height / 2 + 30)
+    text("Press restart button to play again!", width / 2, height / 2 + 30)
     noLoop();
     pcscore = 0;
   }
@@ -190,4 +196,9 @@ function paddleInCanvas() {
   if (mouseY < 0) {
     mouseY = 0;
   }
+}
+function restart(){
+  pcscore=0;
+  playerscore=0;
+  loop();
 }
